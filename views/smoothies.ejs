@@ -1,0 +1,81 @@
+<%- include('partials/header'); -%>
+
+<!-- <ul class="recipes">
+  <li class="recipe">
+    <img src="/smoothie.png" alt="smoothie recipe icon">
+    <h4>Banana Boost</h4>
+    <p>Banana, Vanilla ice cream, Milk</p>
+  </li>
+  <li class="recipe">
+    <img src="/smoothie.png" alt="smoothie recipe icon">
+    <h4>Tropical Twist</h4>
+    <p>Peach, Pinapple, Apple juice</p>
+  </li>
+  <li class="recipe">
+    <img src="/smoothie.png" alt="smoothie recipe icon">
+    <h4>Protein Packer</h4>
+    <p>Oats, Peanut butter, Milk, Banana, Blueberries</p>
+  </li>
+  <li class="recipe">
+    <img src="/smoothie.png" alt="smoothie recipe icon">
+    <h4>Banana Boost</h4>
+    <p>Banana, Vanilla ice cream, Milk</p>
+  </li>
+  <li class="recipe">
+    <img src="/smoothie.png" alt="smoothie recipe icon">
+    <h4>Tropical Twist</h4>
+    <p>Peach, Pinapple, Apple juice</p>
+  </li>
+  <li class="recipe">
+    <img src="/smoothie.png" alt="smoothie recipe icon">
+    <h4>Protein Packer</h4>
+    <p>Oats, Peanut butter, Milk, Banana, Blueberries</p>
+  </li>
+</ul> -->
+
+
+ <!-- upload Csv  -->
+
+ <form id='form'>
+  <div class="container">
+    <div class="card">
+      <h3>Upload Files</h3>
+      <div class="drop_box">
+        <header>
+          <h4>Select File here</h4>
+        </header>
+        <p>Files Supported: Only CSV</p>
+        <input type="file" accept=".csv"  id="fileID"  required >
+        <button class="btn" type='submit'>UPLOAD</button>
+      </div>
+  
+    </div>
+  </div>
+ </form>
+ 
+<script>
+  const form = document.getElementById("form");
+
+  form.addEventListener("submit", submitForm);
+
+  function submitForm(e) {
+      e.preventDefault();
+      const name = document.getElementById("name");
+      const files = document.getElementById("fileID");
+      const formData = new FormData();
+      for(let i =0; i < files.files.length; i++) {
+              formData.append("csvFile", files.files[i]);
+      }
+      fetch("http://localhost:3000/api/uploadCsv/create", {
+          method: 'POST',
+          body: formData,
+      })
+          .then((res) => {
+            console.log(res);
+            window.location.href="http://localhost:3000/success";
+          })
+          .catch((err) => ("Error occured", err));
+  }
+</script>
+
+<%- include('partials/footer'); -%>
